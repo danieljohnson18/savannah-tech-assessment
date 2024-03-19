@@ -7,7 +7,7 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -18,8 +18,15 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Absolute path */
+    /* Absolute path */
+    "paths": {
+      "*": ["./src/*"]
+    },
+    "types": ["vitest/globals"]
   },
-  "include": ["src"],
+  "include": ["src", "vite-env.d.ts", ".eslintrc.cjs", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
