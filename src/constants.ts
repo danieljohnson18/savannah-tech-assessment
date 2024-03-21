@@ -4,19 +4,19 @@ export const roadmaps = [
   {
     id: 1,
     title: "Planned",
-    tagColor: "bg-[#F49F85]",
+    tagColor: "#F49F85",
     count: 2
   },
   {
     id: 2,
     title: "In-Progress",
-    tagColor: "bg-[#AD1FEA]",
+    tagColor: "#AD1FEA",
     count: 3
   },
   {
     id: 3,
     title: "Live",
-    tagColor: "bg-[#62BCFA]",
+    tagColor: "#62BCFA",
     count: 1
   }
 ];

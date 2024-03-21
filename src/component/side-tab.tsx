@@ -1,52 +1,51 @@
-import { roadmaps ,tags } from "../constants"
-import { useState } from "react"
-
+import { useState } from 'react';
+import { Box, Text, Flex, useToken } from '@chakra-ui/react';
+import { roadmaps, tags } from '../constants';
 
 const SideTab = () => {
-    const [selectedTag, setSelectedTag] = useState(tags[0])
+  const [selectedTag, setSelectedTag] = useState(tags[0]);
 
-    const handleSelectedTag = (selected: string) => {
-        setSelectedTag(selected)
-    }
-    return (
-        <aside className="flex flex-col gap-6 fixed inset-y-0 left-0 w-1/5 m-10">
-            <div className="bg-smooth-gradient w-[255px] h-[137px] flex flex-col justify-end items-start px-6 py-6 rounded-[10px]">
-                <h3 className="font-bold text-[20px] text-white leading-[28.9px]">Frontend Mentor</h3>
-                <span className="font-medium text-[15px] leading-[21.68px] text-white opacity-70">Feedback Board</span>
-            </div>
-            <div className="p-6 w-[255px] h-[166px] bg-white rounded-[10px]">
-                <div className="flex flex-wrap gap-x-2 gap-y-[14px]">
-                    {
-                        tags.map((tag, index) => {
-                            const activeTag = selectedTag === tag ? "bg-[#4661E6] px-4 py-[5px] rounded-[10px] text-white" : "bg-[#F2F4FF] px-4 py-[5px] rounded-[10px] text-[#4661E6]"
-                            return (
-                                <span className={`${activeTag} text-center text-[13px] leading-[18.79px] font-semibold cursor-pointer`} key={index} onClick={() => handleSelectedTag(tag)}>{tag}</span>
-                            )
-                        })
-                    }
-                </div>
-            </div>
-            <div className="p-6 w-[255px] h-[178px] bg-white rounded-[10px] flex flex-col justify-end">
-                <div className="flex flex-col gap-2">
-                    <div className="flex flex-row justify-between items-center">
-                        <h3 className="font-bold text-[18px] leading-[26.01px] text-[#3A4374]">Roadmap</h3>
-                        <span className="underline text-[#4661E6] text-[13px] font-semibold leading-[18.79px]">View</span>
-                    </div>
-                    {
-                        roadmaps.map(({ id, title, tagColor, count }) => {
-                            return (
-                                <div key={id} className="flex flex-row items-center justify-between">
-                                    <div className="flex flex-row gap-4 items-center"><div className={`${tagColor} h-[8px] w-[8px] rounded-full`} /> <span className="text-[#647196] text-sm font-normal leading-[23.12px]">{title}</span></div>
-                                    <span className="text-sm font-bold text-[#647196] leading-[23.12px]">{count}</span>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            </div>
-        </aside>
-    )
-}
+  const handleSelectedTag = (selected:string) => {
+    setSelectedTag(selected);
+  };
 
-export default SideTab
+  const [blue500] = useToken('colors', ['#4661E6']);
 
+  return (
+    <Box position="fixed" top="0" left="0" w="20%" m="10" display="flex" flexDirection="column" gap="6">
+      <Box bgGradient="linear(to-r, #E84D70, #A337F6, #28A7ED)" w="255px" h="137px" display="flex" flexDirection="column" justifyContent="end" alignItems="start" p="6" borderRadius="10px">
+        <Text fontWeight="bold" fontSize="20px" color="white">Frontend Mentor</Text>
+        <Text fontWeight="medium" fontSize="15px" color="white" opacity="0.7">Feedback Board</Text>
+      </Box>
+      <Box p="6" w="255px" bg="white" borderRadius="10px">
+        <Flex wrap="wrap" gap="3">
+          {tags.map((tag, index) => {
+            const isActive = selectedTag === tag;
+            return (
+              <Box key={index} bg={isActive ? blue500 : '#F2F4FF'} color={isActive ? '#ffffff' : blue500} display='flex' alignItems='center' px="4" h="30px" borderRadius="10px" fontSize="13px" fontWeight="semibold" onClick={() => handleSelectedTag(tag)}>
+                {tag}
+              </Box>
+            );
+          })}
+        </Flex>
+      </Box>
+      <Box p="6" w="255px" bg="white" borderRadius="10px">
+        <Flex align="center" justify="space-between">
+        <Text fontWeight="bold" fontSize="18px" color="#3A4374" mb="4">Roadmap</Text>
+        <Text as="u" color={blue500} fontSize="13px" fontWeight="semibold" mb="4" alignSelf="flex-start">View</Text>
+        </Flex>
+        {roadmaps.map(({ id, title, tagColor, count }) => (
+          <Flex key={id} justifyContent="space-between" alignItems="center" mb="2">
+            <Flex alignItems="center" gap="4">
+              <Box bg={tagColor} h="8px" w="8px" borderRadius="full" />
+              <Text color="#647196" fontSize="sm">{title}</Text>
+            </Flex>
+            <Text fontSize="sm" fontWeight="bold" color="#647196">{count}</Text>
+          </Flex>
+        ))}
+      </Box>
+    </Box>
+  );
+};
+
+export default SideTab;
